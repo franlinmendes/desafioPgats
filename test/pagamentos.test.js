@@ -1,6 +1,5 @@
 import assert from 'node:assert';
 import Pagamentos from '../src/pagamentos.js';
-import { it } from 'node:test';
 
 describe('Testes da classe Pagamentos', function () {
   it('Deve realizar um pagamento com categoria cara quando valor for maior que 100', function () {
@@ -51,10 +50,12 @@ describe('Testes da classe Pagamentos', function () {
   it('Deve exibir um erro quando o valor for menor ou igual a zero', function () {
     const pagamentos = new Pagamentos();  
 
-    pagamentos.pagarConta('0000-0000-0000', 'Empresa X', -50);
-
-    const ultimoPagamento = pagamentos.consultarUltimoPagamento();  
-    assert.strictEqual(ultimoPagamento, undefined);
+    assert.throws(() => pagamentos.pagarConta('0000-0000-0000', 'Empresa', -5), {
+      message: 'Valor deve ser maior que zero.'
+    });
+    assert.throws(() => pagamentos.pagarConta('0000-0000-0000', 'Empresa', 0), {
+      message: 'Valor deve ser maior que zero.'
+    });
   });
 
   it('Deve consultar apenas o último pagamento realizado', function () {

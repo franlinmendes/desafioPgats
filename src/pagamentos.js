@@ -11,8 +11,7 @@ class Pagamentos {
     pagarConta(codigoDeBarras, empresa, valor) {
         let categoria = "padrão";
         if (valor <= 0) {
-            error("Valor deve ser maior que zero.");
-            return;
+            throw new Error("Valor deve ser maior que zero.");
         }else if (valor > 100) {
             categoria = "cara";
         }    
