@@ -2,24 +2,30 @@
   "name": "desafiopgats",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha"
+  "keywords": [],
+  "homepage": "https://github.com/franlinmendes/desafioPgats#readme",
+  "bugs": {
+    "url": "https://github.com/franlinmendes/desafioPgats/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/franlinmendes/desafioPgats.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/franlinmendes/desafioPgats/issues"
+  "main": "index.js",
+  "directories": {
+    "test": "test"
   },
-  "homepage": "https://github.com/franlinmendes/desafioPgats#readme",
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
-    "mocha": "^11.7.5",
+    "mocha": "^11.7.6",
     "mochawesome": "^7.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1"
   }
 }
