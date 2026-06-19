@@ -51,7 +51,7 @@ jobs:
 
           # Salvando o XML no GitHub para você conseguir baixar depois
           - name: Salvar relatório como artefato
-            uses: actions/upload-artifact@v5
+            uses: actions/upload-artifact@v7
             if: always() # Rodar mesmo se algum teste falhar
             with:
               name: resultados-dos-testes
