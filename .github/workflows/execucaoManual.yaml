@@ -12,29 +12,25 @@ jobs:
 
         # passos do job
         steps:
-            # clone do projeto
-            - uses: actions/checkout@v7
+            # clone do projeto (atualizado para v4 estável)
+            - uses: actions/checkout@v4
 
-            # instalção do node
+            # instalação do node (ajustado para v22.x LTS estável)
             - uses: actions/setup-node@v4
               with:
-                  node-version: 24.x
+                  node-version: 22.x
             
             - name: Install NPM Dependencies
               run: npm ci
 
             - name: Install Browser Binaries
               run: npx playwright install --with-deps
-
-            # instalação do Mocha            
-            - name: Instalando Mocha
-              run: npm install -g mocha
             
-            # Intalando Mocha JUnit Reporter
-            - name: Instalando Mocha JUnit Reporter
-              run: npm install -g mocha-junit-reporter
+            # CORREÇÃO: Instalando o reporter diretamente na pasta local do projeto
+            - name: Instalando Mocha JUnit Reporter Localmente
+              run: npm install mocha-junit-reporter --save-dev
             
-            # Executando testes
+            # Executando testes (agora ele vai encontrar o reporter local)
             - name: Executando testes
               run: npm test
 
@@ -44,10 +40,10 @@ jobs:
               if: always() # Rodar mesmo se algum teste falhar
               with:
                 name: resultados-dos-testes
-                path: test-results.xml
+                path: ./test-results.xml
 
             - name: Publicar Resumo dos Testes na aba Summary
               uses: test-summary/action@v2
               with:
-                paths: 'test-results.xml' # O caminho exato do arquivo gerado pelo Mocha
+                paths: './test-results.xml' # O caminho exato do arquivo gerado pelo Mocha
               if: always() # GARANTE que o resumo seja publicado mesmo se algum teste falhar
