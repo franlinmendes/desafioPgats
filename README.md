@@ -1,4 +1,4 @@
-markdown# 🚀 Pipeline de Testes E2E com Playwright, Mocha e GitHub Actions
+🚀 Projeto com uma Pipeline de Testes E2E com Playwright, Mocha e GitHub Actions
 
 Este repositório possui uma solução de Integração Contínua (CI) totalmente automatizada para a execução de testes de ponta a ponta (E2E). A arquitetura utiliza o **Playwright** como biblioteca de automação, o **Mocha** como executor de testes, e o **GitHub Actions** para orquestrar a execução e exibir relatórios visuais diretamente na plataforma.
 
@@ -18,15 +18,19 @@ Este repositório possui uma solução de Integração Contínua (CI) totalmente
 
 O arquivo de configuração do GitHub Actions (`.github/workflows/e2e-tests.yml`) segue uma sequência lógica projetada para garantir eficiência e visibilidade:
 
-Use o código com cuidado.[Gatilho] ➡️ [Setup do Ambiente] ➡️ [Instalação] ➡️ [Execução] ➡️ [Geração de Relatórios]
 1. **Gatilhos (Triggers):** A pipeline é ativada automaticamente em três cenários:
    * **Manualmente:** Através do botão `Workflow Dispatch` na interface do GitHub.
    * **Push:** Sempre que um novo código é enviado para a branch `main`.
    * **Agendamento (Cron):** Executado de forma rotineira **todas as sextas-feiras às 09:00 AM**.
+
 2. **Ambiente Isolado (Runner):** O trabalho roda em um container limpo com **Ubuntu 24.04** e **Node.js v22.x LTS**, garantindo que o teste execute sempre no mesmo ambiente controlado.
+
 3. **Instalação Limpa (`npm ci`):** Garante a instalação exata das dependências do projeto com base no arquivo `package-lock.json`, evitando variações de versão.
+
 4. **Instalação dos Navegadores:** O comando `npx playwright install --with-deps` baixa os binários do Chromium, Firefox e Webkit, além de instalar as dependências de sistema operacional necessárias para rodá-los no Linux.
+
 5. **Geração Dinâmica do Reporter:** A pipeline instala o `mocha-junit-reporter` localmente antes da execução para mitigar qualquer ausência de dependência no ambiente de CI.
+
 6. **Execução e Captura (`if: always()`):** Mesmo que um teste quebre e o comando `npm test` falhe, os passos seguintes de relatório **são forçados a rodar**. Isso garante que você descubra o que quebrou em vez de a pipeline simplesmente "apagar as luzes".
 
 ---
