@@ -19,14 +19,16 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 24.x
+            
+            - name: Install NPM Dependencies
+              run: npm ci
+
+            - name: Install Browser Binaries
+              run: npx playwright install --with-deps
 
             # instalação do Mocha            
             - name: Instalando Mocha
               run: npm install -g mocha 
-            
-            # instalação o Playwright
-            - name: Instalando o Playwright
-              run: yarn playwright install
             
             # Executando testes
             - name: Executando testes
