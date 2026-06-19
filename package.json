@@ -19,7 +19,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=test-results.xml"
   },
   "dependencies": {
     "mocha": "^11.7.6",

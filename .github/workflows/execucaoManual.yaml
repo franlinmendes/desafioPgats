@@ -8,7 +8,7 @@ jobs:
     #nome do job
     e2e-tests:
         # maquina onde o job vai rodar
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
 
         # passos do job
         steps:
@@ -28,8 +28,26 @@ jobs:
 
             # instalação do Mocha            
             - name: Instalando Mocha
-              run: npm install -g mocha 
+              run: npm install -g mocha
+            
+            # Intalando Mocha JUnit Reporter
+            - name: Instalando Mocha JUnit Reporter
+              run: npm install -g mocha-junit-reporter
             
             # Executando testes
             - name: Executando testes
               run: npm test
+
+            # Salvando o XML no GitHub para você conseguir baixar depois
+            - name: Salvar relatório como artefato
+              uses: actions/upload-artifact@v4
+              if: always() # Rodar mesmo se algum teste falhar
+              with:
+                name: resultados-dos-testes
+                path: test-results.xml
+
+            - name: Publicar Resumo dos Testes na aba Summary
+              uses: test-summary/action@v2
+              with:
+                paths: 'test-results.xml' # O caminho exato do arquivo gerado pelo Mocha
+              if: always() # GARANTE que o resumo seja publicado mesmo se algum teste falhar

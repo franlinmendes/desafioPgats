@@ -2,15 +2,14 @@
 name: "Execução Pós Deploy"
 
 on:    
-  workflow_run:
-    workflows: ['Execução Manual']
-    types:
-      - completed
+  push:
+    branches:
+      - main
 jobs:
     #nome do job
     e2e-tests:
         # maquina onde o job vai rodar
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
 
         # passos do job
         steps:
