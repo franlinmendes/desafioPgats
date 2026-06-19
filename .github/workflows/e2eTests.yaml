@@ -11,7 +11,7 @@ on:
         - main  
 
     schedule:
-      - cron: "10 17 * * 5" # Executa todos as sextas-feiras às 17:10 UTC (14:10 horário de Brasília)
+      - cron: "14 20 * * 5-6" # Executa todos as sextas-feiras às 14:20 UTC (14:10 horário de Brasília)
   
 jobs:
     #nome do job
@@ -19,40 +19,46 @@ jobs:
         # maquina onde o job vai rodar
         runs-on: ubuntu-24.04
 
+        env:
+          TZ: "America/Sao_Paulo" # Define o timezone para todo o job
+
         # passos do job
         steps:
-            # clone do projeto (atualizado para v4 estável)
-            - uses: actions/checkout@v4
+          - name: Mostrar data
+            run: date
 
-            # instalação do node (ajustado para v22.x LTS estável)
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 22.x
+          # clone do projeto (atualizado para v4 estável)
+          - uses: actions/checkout@v4
+
+          # instalação do node (ajustado para v22.x LTS estável)
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 22.x
             
-            - name: Install NPM Dependencies
-              run: npm ci
+          - name: Install NPM Dependencies
+            run: npm ci
 
-            - name: Install Browser Binaries
-              run: npx playwright install --with-deps
+          - name: Install Browser Binaries
+            run: npx playwright install --with-deps
             
-            # CORREÇÃO: Instalando o reporter diretamente na pasta local do projeto
-            - name: Instalando Mocha JUnit Reporter Localmente
-              run: npm install mocha-junit-reporter --save-dev
+          #Instalando o reporter diretamente na pasta local do projeto
+          - name: Instalando Mocha JUnit Reporter Localmente
+            run: npm install mocha-junit-reporter --save-dev
             
-            # Executando testes (agora ele vai encontrar o reporter local)
-            - name: Executando testes
-              run: npm test
+          # Executando testes (agora ele vai encontrar o reporter local)
+          - name: Executando testes
+            run: npm test
 
-            # Salvando o XML no GitHub para você conseguir baixar depois
-            - name: Salvar relatório como artefato
-              uses: actions/upload-artifact@v4
-              if: always() # Rodar mesmo se algum teste falhar
-              with:
-                name: resultados-dos-testes
-                path: ./test-results.xml
+          # Salvando o XML no GitHub para você conseguir baixar depois
+          - name: Salvar relatório como artefato
+            uses: actions/upload-artifact@v4
+            if: always() # Rodar mesmo se algum teste falhar
+            with:
+              name: resultados-dos-testes
+              path: ./test-results.xml
 
-            - name: Publicar Resumo dos Testes na aba Summary
-              uses: test-summary/action@v2
-              with:
-                paths: './test-results.xml' # O caminho exato do arquivo gerado pelo Mocha
+          - name: Publicar Resumo dos Testes na aba Summary
+            uses: test-summary/action@v2
+            with:
+              paths: './test-results.xml' # O caminho exato do arquivo gerado pelo Mocha
               if: always() # GARANTE que o resumo seja publicado mesmo se algum teste falhar
