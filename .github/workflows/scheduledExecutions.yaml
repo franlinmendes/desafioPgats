@@ -2,6 +2,8 @@
 name: "Execução Agendada"
 
 on:
+    workflow_dispatch:
+    
     schedule:
         - cron: "0 4* * 5 # Executa todos as sextas-feiras às 4 da manhã
 
