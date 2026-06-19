@@ -11,7 +11,7 @@ on:
         - main  
 
     schedule:
-      - cron: "0 9 * * 5" # Executa todos as sextas-feiras às 9 da manhã
+      - cron: "10 17 * * 5" # Executa todos as sextas-feiras às 17:10 UTC (14:10 horário de Brasília)
   
 jobs:
     #nome do job
