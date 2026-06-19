@@ -1,0 +1,33 @@
+# nome da pipeline
+name: "Execução Manual"
+
+on:
+    workflow_dispatch:
+
+jobs:
+    #nome do job
+    e2e-tests:
+        # maquina onde o job vai rodar
+        runs-on: ubuntu-latest
+
+        # passos do job
+        steps:
+            # clone do projeto
+            - uses: actions/checkout@v7
+
+            # instalção do node
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24.x
+
+            # instalação do Mocha            
+            - name: Instalando Mocha
+              run: npm install -g mocha 
+            
+            # instalação o Playwright
+            - name: Instalando o Playwright
+              run: yarn playwright install
+            
+            # Executando testes
+            - name: Executando testes
+              run: npm test
