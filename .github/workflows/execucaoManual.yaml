@@ -7,11 +7,11 @@ on:
 
     # Também pode ser executada quando houver um push na branch main, caso queira testar o processo de CI/CD
     push:
-    branches:
-      - main
+      branches:
+        - main  
 
     schedule:
-        - cron: "0 9 * * 5" # Executa todos as sextas-feiras às 9 da manhã
+      - cron: "0 9 * * 5" # Executa todos as sextas-feiras às 9 da manhã
   
 jobs:
     #nome do job
