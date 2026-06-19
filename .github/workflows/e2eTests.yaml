@@ -28,10 +28,10 @@ jobs:
             run: date
 
           # clone do projeto (atualizado para v4 estável)
-          - uses: actions/checkout@v4
+          - uses: actions/checkout@v5
 
           # instalação do node (ajustado para v22.x LTS estável)
-          - uses: actions/setup-node@v4
+          - uses: actions/setup-node@v5
             with:
               node-version: 22.x
             
@@ -51,7 +51,7 @@ jobs:
 
           # Salvando o XML no GitHub para você conseguir baixar depois
           - name: Salvar relatório como artefato
-            uses: actions/upload-artifact@v4
+            uses: actions/upload-artifact@v5
             if: always() # Rodar mesmo se algum teste falhar
             with:
               name: resultados-dos-testes
@@ -61,4 +61,4 @@ jobs:
             uses: test-summary/action@v2
             with:
               paths: './test-results.xml' # O caminho exato do arquivo gerado pelo Mocha
-              if: always() # GARANTE que o resumo seja publicado mesmo se algum teste falhar
+            if: always() # GARANTE que o resumo seja publicado mesmo se algum teste falhar
