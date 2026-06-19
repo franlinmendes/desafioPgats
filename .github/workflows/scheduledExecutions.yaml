@@ -3,8 +3,8 @@ name: "Execução Agendada"
 
 on:    
     schedule:
-        - cron: "0 4* * 5 # Executa todos as sextas-feiras às 4 da manhã
-        - cron: "0 8* * 5 # Executa todos as sextas-feiras às 8 da manhã
+        - cron: "0 4 * * 5" # Executa todos as sextas-feiras às 4 da manhã
+        - cron: "0 8 * * 5" # Executa todos as sextas-feiras às 8 da manhã
 
 jobs:
     #nome do job
